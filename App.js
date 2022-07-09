@@ -1,5 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View,Button,TextInput} from 'react-native';
+import { StyleSheet, Text, 
+  View,Button,TextInput,
+   ScrollView,FlatList} from 'react-native';
 import { useState } from 'react';
 
 
@@ -15,7 +17,7 @@ export default function App() {
   function addGoalHandler(){
     setCourseGoals((currentCourseGoals) =>[
       ...currentCourseGoals, 
-      enteredGoalText,
+      {text: enteredGoalText, id: Math.random().toString()},
     ]);
   }
 
@@ -28,10 +30,24 @@ export default function App() {
         placeholder='Your course goal'
         onChangeText={goalInputHandler}
         />
+  
         <Button title='Add Goal' onPress={addGoalHandler}/>
       </View>
       <View style={styles.goalsContainer}>
-        {courseGoals.map((goal)=> <Text key={goal}>{goal}</Text>)}
+        <FlatList 
+        data={courseGoals}
+        renderItem={(itemData) =>{ 
+          return (
+            <View style={styles.goalItem}>
+              <Text style={styles.goalText}>{itemData.item.text}</Text>
+              </View>
+          );
+        
+        }}
+        keyExtractor={(item,index)=>{
+          return item.id;
+        }}
+        alwaysBounceVertical={false}/>
       </View>
     </View>
   );  
@@ -61,5 +77,15 @@ const styles = StyleSheet.create({
   },
   goalsContainer:{
     flex:5
+  },
+  goalItem: {
+    margin:8,
+    padding:8,
+    borderRadius:6,
+    backgroundColor:'#5e0acc',
+  },
+  goalText:{
+    color:'yellow',
   }
+
 });
