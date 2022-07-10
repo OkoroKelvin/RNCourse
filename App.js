@@ -39,6 +39,8 @@ export default function App() {
 
 
   return (
+    <>
+    <StatusBar style="light"/>
     <View style={styles.appContainer}>
     <Button 
     title='Add New Goal' 
@@ -66,6 +68,7 @@ export default function App() {
         alwaysBounceVertical={false}/>
       </View>
     </View>
+    </>
   );  
 }
 
@@ -73,7 +76,7 @@ const styles = StyleSheet.create({
   appContainer:{
     flex:1,
     paddingTop:50,
-    paddingHorizontal:16
+    paddingHorizontal:16,
   },
   goalsContainer:{
     flex:5
